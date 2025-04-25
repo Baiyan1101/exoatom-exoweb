@@ -1,0 +1,34 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Temporary files
+*.swp
+*.swo
+*.swn
+*.swm
+*.swl
+
+# macOS Desktop Services Store file created by Finder
+.DS_Store
+
+node_modules
+.sass-cache
+.mysql-password
+.ipynb_checkpoints
+activate
+sandpit
+
+# PyCharm IDE
+.idea
+
+db.sqlite3
+local.py
+media

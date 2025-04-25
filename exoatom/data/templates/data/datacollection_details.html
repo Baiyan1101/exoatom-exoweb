@@ -1,0 +1,15 @@
+{% load datacollection_tags %}
+<h3 class="text-lg underline">{{ datacollection.species }}: {{ datacollection.dataset }} Data Set version {{ datacollection.metadata.dataset.version }}</h3>
+<p>{{ datacollection.metadata.species.spectroscopic_notation }} | mass = {{ datacollection.metadata.species.mass_in_Da }} u</p>
+<p>Max temperature: {{ datacollection.metadata.dataset.max_temperature }} K</p>
+<ul>
+{% for link in datacollection.links.all %}
+<li class="bg-white my-5 p-2">
+    <a href="{{ link.download_url }}">{{ link.filename }}</a> [{{ link.size|filesizeformat }}]<br/>
+    <span class="text-sm">
+    {{ link.description }}
+    {% link_metadata link datacollection.metadata %}
+    </span>
+</li>
+{% endfor %}
+</ul>

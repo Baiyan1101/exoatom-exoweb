@@ -5,6 +5,10 @@ table.periodic_table {
     border-spacing: 3px 3px;
 }
 
+section.periodic_table__element_symbol {
+  font-size: 1rem;
+}
+
 tr.periodic_table__lanthanides td {
     padding-top: 10px;
 }
@@ -15,15 +19,30 @@ article.periodic_table__element {
 }
 
 section.periodic_table__element_atomic_number {
-    float: left;
+    text-align: center;
     font-family: sans-serif;
     color: black;
 }
 
 section.periodic_table__element_symbol {
-    font-size: 1.5em;
+    font-size: 150%;
     font-family: sans-serif;
     text-align: center;
     clear: both;
+}
+
+@media (max-width: 768px) {
+section.periodic_table__element_symbol, section.periodic_table__element_atomic_number {
+    font-size: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+article.periodic_table__element {
+    padding: 0;
+}
+section.periodic_table__element_symbol, section.periodic_table__element_atomic_number {
+    font-size: 50%;
+  }
 }
 

@@ -4,16 +4,15 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('data', '0001_initial'),
+        ("data", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='datacollection',
-            name='metadata',
-            field=models.JSONField(blank=True, default=''),
+            model_name="datacollection",
+            name="metadata",
+            field=models.JSONField(blank=True, default=""),
             preserve_default=False,
         ),
     ]

@@ -1,0 +1,32 @@
+{% spaceless %}
+<table class="periodic_table">
+    <tbody>
+    {% for period in main_table %}
+        <tr>
+        {% for element in period %}
+            {% if element %}
+                <td>{% include "periodic_table/includes/element.html" %}</td>
+            {% else %}
+                <td></td>
+            {% endif %}
+        {% endfor %}
+        </tr>
+    {% endfor %}
+    </tbody>
+
+    <tbody>
+    <tr class="periodic_table__lanthanides">
+        <td></td><td></td>
+        {% for element in lanthanides %}
+            <td>{% include "periodic_table/includes/element.html" %}</td>
+        {% endfor %}
+    </tr>
+    <tr class="periodic_table__actinides">
+        <td></td><td></td>
+        {% for element in actinides %}
+            <td>{% include "periodic_table/includes/element.html" %}</td>
+        {% endfor %}
+    </tr>
+    </tbody>
+</table>
+{% endspaceless %}

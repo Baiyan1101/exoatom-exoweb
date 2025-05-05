@@ -7,6 +7,8 @@ from wagtail.admin.panels import FieldPanel
 from data.models import DataCollection
 
 from pyvalem.formula import Formula, FormulaParseError
+
+
 def parse_query(query):
     try:
         formula = Formula(query)
@@ -17,6 +19,7 @@ def parse_query(query):
     atom = formula.atoms.pop().symbol
     return atom, formula.charge
 
+
 class HomePage(Page):
     body = RichTextField(blank=True)
 
@@ -26,12 +29,13 @@ class HomePage(Page):
 
     def get_context(self, request):
         context = super().get_context(request)
-        query = request.GET.get('q', '')
+        query = request.GET.get("q", "")
         if query:
             atom, charge = parse_query(query)
             if atom is None:
-                context['results'] = []
+                context["results"] = []
             else:
-                context['results'] = DataCollection.objects.filter(
-                            species__atom=atom, species__charge=charge)
+                context["results"] = DataCollection.objects.filter(
+                    species__atom=atom, species__charge=charge
+                )
         return context

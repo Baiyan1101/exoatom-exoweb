@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Species(models.Model):
     atom = models.CharField(max_length=2)
     charge = models.SmallIntegerField()
@@ -17,4 +18,3 @@ class Species(models.Model):
             return s + f"{self.charge:+d}"
         else:
             return s
-    

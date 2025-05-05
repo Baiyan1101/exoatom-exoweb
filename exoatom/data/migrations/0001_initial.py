@@ -5,30 +5,51 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
-        ('species', '0001_initial'),
+        ("species", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Link',
+            name="Link",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('url', models.CharField(max_length=200)),
-                ('size', models.BigIntegerField(blank=True, null=True)),
-                ('description', models.TextField()),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("url", models.CharField(max_length=200)),
+                ("size", models.BigIntegerField(blank=True, null=True)),
+                ("description", models.TextField()),
             ],
         ),
         migrations.CreateModel(
-            name='DataCollection',
+            name="DataCollection",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('dataset', models.CharField(max_length=10)),
-                ('species', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='species.species')),
-                ('links', models.ManyToManyField(to='data.link')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("dataset", models.CharField(max_length=10)),
+                (
+                    "species",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="species.species",
+                    ),
+                ),
+                ("links", models.ManyToManyField(to="data.link")),
             ],
         ),
     ]

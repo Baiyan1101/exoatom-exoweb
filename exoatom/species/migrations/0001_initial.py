@@ -4,20 +4,26 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Species',
+            name="Species",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('atom', models.CharField(max_length=2)),
-                ('charge', models.SmallIntegerField()),
-                ('isotope', models.CharField(blank=True, max_length=5)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("atom", models.CharField(max_length=2)),
+                ("charge", models.SmallIntegerField()),
+                ("isotope", models.CharField(blank=True, max_length=5)),
             ],
         ),
     ]

@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class SpeciesConfig(AppConfig):
+class PeriodicTableConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "species"
+    name = "periodic_table"

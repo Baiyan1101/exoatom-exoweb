@@ -1,0 +1,14 @@
+{% spaceless %}
+{% if element.link %}
+<a href="{{ element.link }}">
+{% endif %}
+<article class="periodic_table__element {{ element.css_class }}">
+    <section class="periodic_table__element_atomic_number">{{ element.atomic_number }}</section>
+    <section class="periodic_table__element_symbol">{{ element.symbol }}</section>
+</article>
+</a>
+{% if element.link %}
+</a>
+{% endif %}
+{% endspaceless %}
+

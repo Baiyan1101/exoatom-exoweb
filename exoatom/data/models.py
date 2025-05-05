@@ -3,6 +3,7 @@ from django.conf import settings
 
 from species.models import Species
 
+
 class Link(models.Model):
     url = models.CharField(max_length=200)
     size = models.BigIntegerField(blank=True, null=True)
@@ -12,7 +13,7 @@ class Link(models.Model):
         return self.url
 
     def filename(self):
-        return self.url.split('/')[-1]
+        return self.url.split("/")[-1]
 
     def download_url(self):
         return f"{settings.DB_URL}/{self.url}"

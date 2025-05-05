@@ -1,0 +1,29 @@
+table.periodic_table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 3px 3px;
+}
+
+tr.periodic_table__lanthanides td {
+    padding-top: 10px;
+}
+
+article.periodic_table__element {
+    padding: 2pt 4pt;
+    border: 1pt solid black;
+}
+
+section.periodic_table__element_atomic_number {
+    float: left;
+    font-family: sans-serif;
+    color: black;
+}
+
+section.periodic_table__element_symbol {
+    font-size: 1.5em;
+    font-family: sans-serif;
+    text-align: center;
+    clear: both;
+}
+

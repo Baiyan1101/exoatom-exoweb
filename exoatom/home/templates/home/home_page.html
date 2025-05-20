@@ -17,9 +17,7 @@
 
 {% include "data/search_form.html" %}
 
-{% periodic_table %}
-
-{% if request.GET.q %}
+{% if results %}
 <h2 class="text-xl" id="search-results">Search Results</h2>
     <ul class="p-2 mb-12">
         {% for datacollection in results %}
@@ -30,6 +28,17 @@
             <li>No results found.</li>
         {% endfor %}
     </ul>
+
+{% elif species %}
+    <p>Select a species:</p>
+    <ul class="flex flex-wrap gap-4 p-4 text-center">
+    {% for s in species %}
+    <li class="bg-white p-4 rounded-lg shadow-md w-32 h-32 flex items-center justify-center"><a href="?qf={{ s.querystr }}">{{ s.html|safe }}<br/>({{ s.spectroscopic_notation_html|safe }})</a></li>
+    {% endfor %}
+    </ul>
+
+{% else %}
+    {% periodic_table %}
 {% endif %}
 
 {% endblock content %}

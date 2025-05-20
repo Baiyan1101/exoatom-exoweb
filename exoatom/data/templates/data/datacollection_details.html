@@ -1,5 +1,5 @@
 {% load datacollection_tags %}
-<h3 class="text-lg underline">{{ datacollection.species.html|safe }}: {{ datacollection.dataset }} Data Set version {{ datacollection.metadata.dataset.version }}</h3>
+<h3 class="text-xl pb-4">{{ datacollection.species.html|safe }}: {{ datacollection.dataset }} Data Set version {{ datacollection.metadata.dataset.version }}</h3>
 <p>{{ datacollection.species.spectroscopic_notation_html|safe }} | mass = {{ datacollection.metadata.species.mass_in_Da }} u</p>
 <p>Max temperature: {{ datacollection.metadata.dataset.max_temperature }} K</p>
 <ul>

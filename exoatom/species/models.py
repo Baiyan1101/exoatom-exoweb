@@ -40,7 +40,7 @@ class Species(models.Model):
     def spectroscopic_notation_html(self):
         # TODO handle this better
         if self.isotope:
-            m = re.match("(\d+)", self.isotope)
+            m = re.match(r"(\d+)", self.isotope)
             A = m.group(1)
             s = f"<sup>{A}</sup>{self.atom}"
         else:

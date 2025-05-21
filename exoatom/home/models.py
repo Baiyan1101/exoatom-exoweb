@@ -66,7 +66,7 @@ class HomePage(Page):
         # Do we have submission through the input field?
         query = request.GET.get("qf")
         if query:
-            all_charges = False
+            all_charges = request.GET.get("input_box_all_charges", False)
         else:
             # Do we have a click on a periodic_table element?
             query = request.GET.get("q")

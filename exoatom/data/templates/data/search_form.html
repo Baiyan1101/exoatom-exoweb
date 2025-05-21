@@ -1,9 +1,20 @@
-<form action="." method="get" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-    <div class="mb-4">
-    <label class="block text-gray-700 text-sm font-bold mb-2" for="species">
-        Species
-    </label>
-    <input class="shadow appearance-none border rounded w-1/2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" id="species" name="qf" placeholder="Search..." value="{{ request.GET.qf }}">
+<form action="{% url 'wagtail_serve' '' %}" method="get" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <div class="mb-4 flex flex-row">
+        <div class="w-1/2 md:w-1/3">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="species">
+                Species
+            </label>
+            <input class="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" id="species" name="qf" placeholder="Search..." value="{{ request.GET.qf }}">
+        </div>
+        <div class="w-1/2 md:w-1/3">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="species">
+                All ionization stages?
+            </label>
+            <input class="accent-orange-500 checkbox h-6 w-6" type="checkbox" id="input_box_all_charges" name="input_box_all_charges" value="true">
+        </div>
     </div>
     <button class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Search</button>
+    {% if request.GET.qf and not species and results|length == 0 %}
+    <p class="pt-4">No matching Species found.</p>
+    {% endif %}
 </form>

@@ -24,6 +24,11 @@ if settings.DEBUG:
     urlpatterns += staticfiles_urlpatterns()
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
+import data.views
+urlpatterns = urlpatterns + [
+    path("data/<int:pk>", data.views.datacollection, name="datacollection"),
+]
+
 urlpatterns = urlpatterns + [
     # For anything not caught by a more specific rule above, hand over to
     # Wagtail's page serving mechanism. This should be the last pattern in

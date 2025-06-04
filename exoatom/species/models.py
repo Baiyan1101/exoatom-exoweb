@@ -1,11 +1,6 @@
 import re
 from django.db import models
-
-
-def roman_numeral(x):
-    if x == 0:
-        return "I"
-    return "II"
+from .utils import int_to_roman_numerals
 
 
 class Species(models.Model):
@@ -45,4 +40,4 @@ class Species(models.Model):
             s = f"<sup>{A}</sup>{self.atom}"
         else:
             s = self.atom
-        return f"{s} {roman_numeral(self.charge)}"
+        return f"{s} {int_to_roman_numerals[self.charge+1]}"

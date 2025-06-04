@@ -8,21 +8,48 @@ from species.models import Species
 from data.models import DataCollection
 
 from pyvalem.formula import Formula, FormulaParseError
+from species.utils import roman_numerals_to_int
 
-
-def parse_query(formula, all_charges=True):
+def parse_formula(formula, all_charges):
+    formula = formula.strip()
+    
     if formula[0].isdigit():
-        # Put brackets around isotopes if not already present
+        # Put brackets around isotope if not already present.
         formula = "(" + formula
         idx = len(formula)
         if "+" in formula:
             idx = formula.index("+")
         elif "-" in formula:
             idx = formula.index("-")
+        elif " " in formula:
+            idx = formula.index(" ")
         formula = formula[:idx] + ")" + formula[idx:]
+
+    try:
+        species, ionization_stage = formula.split()
+        charge = int(roman_numerals_to_int[ionization_stage.upper()]) - 1
+        formula = f"{species}+{charge}"
+    except ValueError:
+        pass
+    except KeyError:
+        return None
+
     try:
         pyvalem_formula = Formula(formula)
     except FormulaParseError:
+        return None
+
+    atom = list(pyvalem_formula.atoms)[0]
+    if pyvalem_formula.charge > atom.Z:
+        return None
+
+    return pyvalem_formula
+
+def parse_query(formula, all_charges=True):
+    formula = formula.strip()
+    
+    pyvalem_formula = parse_formula(formula, all_charges)
+    if not pyvalem_formula:
         return {"results": []}
 
     if pyvalem_formula.natoms != 1:

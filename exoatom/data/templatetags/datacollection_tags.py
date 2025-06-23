@@ -10,7 +10,7 @@ def link_metadata(link, metadata):
         return ""
     if link.url.endswith(".pf"):
         max_T = int(
-            metadata["partition_function"]["max_partition_function_temperature"]
+            metadata["dataset"]["partition_function"]["max_partition_function_temperature"]
         )
         return mark_safe(f"<ul><li>Max temperature: {max_T} K</li></ul>")
     if link.url.endswith(".states"):

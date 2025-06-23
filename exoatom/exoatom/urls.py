@@ -1,6 +1,7 @@
 from django.conf import settings
-from django.urls import include, path
+from django.urls import include, path, re_path
 from django.contrib import admin
+from django.views.generic.base import RedirectView
 
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail import urls as wagtail_urls
@@ -26,6 +27,8 @@ if settings.DEBUG:
 
 import data.views
 urlpatterns = urlpatterns + [
+    re_path('^ExoAtom.all.json$', RedirectView.as_view(url='/db/exoatom.all.json')),
+    re_path('^exoatom.all.json$', RedirectView.as_view(url='/exoatom/db/exoatom.all.json')),
     path("data/<int:pk>", data.views.datacollection, name="datacollection"),
 ]
 

@@ -2,7 +2,7 @@ import os
 import sys
 from conf import exoatom_path, DATA_DIR
 sys.path.append(exoatom_path)
-os.environ['DJANGO_SETTINGS_MODULE'] = 'exoatom.settings.base'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'exoatom.settings.production'
 
 # Prepare the Django models
 import django
@@ -23,7 +23,5 @@ for json_file in json_files:
     atom_slug, dataset = os.path.splitext(filename)[0].split('__')
     dc = DataCollection.objects.get(species__slug=atom_slug, dataset=dataset)
     print(atom_slug, dataset, dc)
-    if atom_slug == "Ag" and dataset == "NIST":
-        continue
     dc.metadata = json.loads(open(json_file).read())
     dc.save()

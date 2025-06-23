@@ -32,3 +32,4 @@ sandpit
 db.sqlite3
 local.py
 media
+conf.py

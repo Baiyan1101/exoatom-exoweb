@@ -56,7 +56,7 @@ def parse_query(formula, all_charges=True):
         # No molecules, photons, etc.
         return {"results": []}
 
-    is_isotope = formula[0] == "("
+    is_isotope = str(pyvalem_formula)[0] == "("
     if is_isotope:
         isotope = pyvalem_formula.atoms.pop().symbol
         charge = pyvalem_formula.charge

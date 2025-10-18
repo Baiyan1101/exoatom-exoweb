@@ -27,7 +27,7 @@ if settings.DEBUG:
 
 import data.views
 urlpatterns = urlpatterns + [
-    re_path('^ExoAtom.all.json$', RedirectView.as_view(url='/db/exoatom.all.json')),
+    re_path('^ExoAtom.all.json$', RedirectView.as_view(url='/exoatom/db/exoatom.all.json')),
     re_path('^exoatom.all.json$', RedirectView.as_view(url='/exoatom/db/exoatom.all.json')),
     path("data/<int:pk>", data.views.datacollection, name="datacollection"),
 ]

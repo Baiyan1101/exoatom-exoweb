@@ -2,6 +2,11 @@
 <h3 class="text-xl pb-4"><a href="{% url 'datacollection' datacollection.pk %}">{{ datacollection.species.html|safe }}: {{ datacollection.dataset }} Data Set version {{ datacollection.metadata.dataset.version }}</a></h3>
 <p>{{ datacollection.species.spectroscopic_notation_html|safe }} | mass = {{ datacollection.metadata.species.mass_in_Da }} u</p>
 <p>Max temperature: {{ datacollection.metadata.dataset.max_temperature }} K</p>
+{% if datacollection.dataset == "NIST" %}
+<p>This data collection is critically evaluated and recommended for accuracy.</p>
+{% elif datacollection.dataset == "Kurucz" %}
+<p>This data collection is recommended for completeness.</p>
+{% endif %}
 <ul>
 {% for link in datacollection.links.all %}
 <li class="bg-white my-5 p-2">

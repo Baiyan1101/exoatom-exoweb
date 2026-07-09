@@ -8,6 +8,9 @@ wheels/
 
 # Virtual environments
 .venv
+.venv/
+venv/
+env/
 
 # Temporary files
 *.swp
@@ -33,3 +36,9 @@ db.sqlite3
 local.py
 media
 conf.py
+
+# Local exoweb runtime/data directories should live outside the repo.
+exoatom_data/
+exoatom_runtime/
+static/
+media/

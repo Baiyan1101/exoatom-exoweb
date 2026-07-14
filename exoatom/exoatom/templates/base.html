@@ -22,8 +22,8 @@
         <base target="_blank">
         {% endif %}
 
-        <link rel="stylesheet" type="text/css" href="{% static 'css/exoatom.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'css/exoatom_replica.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/exoatom.css' %}?v=20260709-2">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/exoatom_replica.css' %}?v=20260709-2">
 
         {% block extra_css %}
         {% endblock %}
@@ -43,7 +43,7 @@
         {% block content %}{% endblock %}
         </main>
 
-        <script type="text/javascript" src="{% static 'js/exoatom.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/exoatom.js' %}?v=20260709-2"></script>
 
         {% block extra_js %}
         {% endblock %}

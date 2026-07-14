@@ -3,6 +3,7 @@ from pathlib import Path
 from django.conf import settings
 from django.http import Http404
 from django.shortcuts import get_object_or_404, render
+from django.views.decorators.cache import never_cache
 
 from data.models import DataCollection
 
@@ -13,6 +14,7 @@ def datacollection(request, pk):
     return render(request, "data/datacollection.html", c)
 
 
+@never_cache
 def file_preview(request, file_path):
     data_root = Path(settings.EXOATOM_DATA_DIR).resolve()
     requested = (data_root / file_path).resolve()

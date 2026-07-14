@@ -1,20 +1,21 @@
 {% load datacollection_tags %}
-<h3 class="text-xl pb-4"><a href="{% url 'datacollection' datacollection.pk %}">{{ datacollection.species.html|safe }}: {{ datacollection.dataset }} Data Set version {{ datacollection.metadata.dataset.version }}</a></h3>
-<p>{{ datacollection.species.spectroscopic_notation_html|safe }} | mass = {{ datacollection.metadata.species.mass_in_Da }} u</p>
-<p>Max temperature: {{ datacollection.metadata.dataset.max_temperature }} K</p>
-{% if datacollection.dataset == "NIST" %}
-<p>This data collection is critically evaluated and recommended for accuracy.</p>
-{% elif datacollection.dataset == "Kurucz" %}
-<p>This data collection is recommended for completeness.</p>
-{% endif %}
-<ul>
+<h3><a href="{% url 'datacollection' datacollection.pk %}">{{ datacollection.species.html|safe }}: {{ datacollection.dataset }} Data Set version {{ datacollection.metadata.dataset.version }}</a></h3>
+<div class="dataset-summary">
+    <p>{{ datacollection.species.spectroscopic_notation_html|safe }}{% if datacollection.metadata.species.mass_in_Da %} | mass = {{ datacollection.metadata.species.mass_in_Da }} u{% endif %}</p>
+    <p>Max temperature: {{ datacollection.metadata.dataset.max_temperature|default:"unavailable" }}{% if datacollection.metadata.dataset.max_temperature %} K{% endif %}</p>
+    {% dataset_note datacollection.dataset as note %}
+    {% if note %}<p>{{ note }}</p>{% endif %}
+</div>
+
+<div class="file-list">
 {% for link in datacollection.links.all %}
-<li class="bg-white my-5 p-2">
-    <a href="{{ link.download_url }}">{{ link.filename }}</a> [{{ link.size|filesizeformat }}]<br/>
-    <span class="text-sm">
-    {{ link.description }}
+<div class="file-card">
+    <a href="{{ link.download_url }}">{{ link.filename }}</a> [{{ link.size|filesizeformat }}]
+    <a class="preview-link" href="{% preview_url link %}">Preview</a>
+    <p>{{ link.description }}</p>
     {% link_metadata link datacollection.metadata %}
-    </span>
-</li>
+</div>
+{% empty %}
+<p class="empty">No local data files are available for this dataset.</p>
 {% endfor %}
-</ul>
+</div>

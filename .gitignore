@@ -40,5 +40,3 @@ conf.py
 # Local exoweb runtime/data directories should live outside the repo.
 exoatom_data/
 exoatom_runtime/
-static/
-media/

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="raw-file-view">
+    <div class="raw-file-toolbar">
+        <button class="secondary" type="button" onclick="history.back()">Back</button>
+        <span>{{ file_path }}</span>
+    </div>
+    {% if error %}
+    <p class="error">{{ error }}</p>
+    {% else %}
+    <pre>{{ preview_text }}</pre>
+    {% if truncated %}
+    <p class="empty">Preview truncated at {{ limit|filesizeformat }} of {{ size|filesizeformat }}.</p>
+    {% endif %}
+    {% endif %}
+</section>
+{% endblock %}

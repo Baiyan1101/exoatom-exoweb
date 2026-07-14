@@ -144,6 +144,9 @@ STATIC_URL = "/static/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
 
+EXOATOM_DATA_DIR = os.environ.get("EXOATOM_DATA_DIR", "/mnt/data/bzhang/exoatom_data")
+EXOATOM_FILE_PREVIEW_LIMIT = int(os.environ.get("EXOATOM_FILE_PREVIEW_LIMIT", 2 * 1024 * 1024))
+
 # Default storage settings, with the staticfiles storage updated.
 # See https://docs.djangoproject.com/en/5.2/ref/settings/#std-setting-STORAGES
 STORAGES = {

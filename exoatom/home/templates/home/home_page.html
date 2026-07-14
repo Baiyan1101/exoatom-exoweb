@@ -9,35 +9,47 @@
 
 {% block content %}
 
-<div class="my-10">
+{% if page.body %}
+<div class="intro-copy">
 {{ page.body|richtext }}
 </div>
+{% endif %}
 
 {% include "data/search_form.html" %}
 
+<section id="results" class="results" aria-live="polite">
 {% if results %}
-<h2 class="text-xl" id="search-results">Search Results</h2>
-    <ul class="p-2 mb-12">
+<h2 id="search-results">Search Results</h2>
+    <div class="results-list">
         {% for datacollection in results %}
-        <li class="p-3 px-8 mb-8 block w-full border-gray-200 border rounded-lg bg-orange-100">
+        <article class="dataset-card">
             {% include "data/datacollection_details.html" with datacollection=datacollection %}
-        </li>
+        </article>
         {% empty %}
-            <li>No results found.</li>
+            <p class="empty">No results found.</p>
         {% endfor %}
-    </ul>
+    </div>
 
 {% elif species %}
-    <p>Select a species:</p>
-    <ul class="flex flex-wrap gap-4 p-4 text-center">
-    {% for s in species %}
-    <li class="bg-white p-4 rounded-lg shadow-md w-32 h-32 flex items-center justify-center"><a href="?qf={{ s.querystr }}">{{ s.html|safe }}<br/>({{ s.spectroscopic_notation_html|safe }})</a></li>
-    {% endfor %}
-    </ul>
+    <section class="species-section">
+        <h2>Select a species:</h2>
+        <div class="species-grid">
+        {% for s in species %}
+        <a class="species-card" href="?qf={{ s.querystr }}">
+            <span>{{ s.html|safe }}</span>
+            <small>({{ s.spectroscopic_notation_html|safe }})</small>
+        </a>
+        {% endfor %}
+        </div>
+    </section>
 
 {% else %}
-    {% periodic_table %}
+    <section class="periodic-section">
+        <h2>Select an element:</h2>
+        {% periodic_table %}
+    </section>
 {% endif %}
+</section>
 
 {% endblock content %}
 

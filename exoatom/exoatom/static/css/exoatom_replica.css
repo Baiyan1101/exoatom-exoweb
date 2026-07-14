@@ -164,8 +164,20 @@ button.secondary:hover,
   color: var(--accent);
 }
 
-.periodic_table__element:hover {
+.periodic_table__element_link:hover .periodic_table__element {
   background: #fff7f0;
+}
+
+.periodic_table__element--disabled {
+  border-color: var(--border) !important;
+  color: #a2a8b0;
+  cursor: default;
+  opacity: 0.5;
+}
+
+.periodic_table__element--disabled .periodic_table__element_symbol,
+.periodic_table__element--disabled .periodic_table__element_atomic_number {
+  color: #a2a8b0 !important;
 }
 
 .periodic_table__element_atomic_number {

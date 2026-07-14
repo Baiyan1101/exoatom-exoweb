@@ -1,14 +1,12 @@
 {% spaceless %}
 {% if element.link %}
-<a href="{{ element.link }}">
+<a class="periodic_table__element_link" href="{{ element.link }}" title="{{ element.name }}">
 {% endif %}
-<article class="periodic_table__element {{ element.css_class }}">
+<article class="periodic_table__element{% if not element.link %} periodic_table__element--disabled{% endif %}"{% if not element.link %} aria-label="{{ element.name }} is not available"{% endif %}>
     <section class="periodic_table__element_atomic_number">{{ element.atomic_number }}</section>
     <section class="periodic_table__element_symbol">{{ element.symbol }}</section>
 </article>
-</a>
 {% if element.link %}
 </a>
 {% endif %}
 {% endspaceless %}
-

@@ -1,3 +1,5 @@
+import re
+
 from django.db import models
 
 from wagtail.models import Page
@@ -10,8 +12,16 @@ from data.models import DataCollection
 from pyvalem.formula import Formula, FormulaParseError
 from species.utils import roman_numerals_to_int
 
-def parse_formula(formula, all_charges):
+def normalize_formula_input(formula):
     formula = formula.strip()
+    formula = re.sub(r"^((?:\d+)?[A-Z][a-z]?)[_-]([IVXLCDM]+)$", r"\1 \2", formula, flags=re.IGNORECASE)
+    return formula
+
+
+def parse_formula(formula, all_charges):
+    formula = normalize_formula_input(formula)
+    if not formula:
+        return None
     
     if formula[0].isdigit():
         # Put brackets around isotope if not already present.
@@ -65,18 +75,18 @@ def parse_query(formula, all_charges=True):
                 species = Species.objects.get(isotope=isotope, charge=charge)
             except Species.DoesNotExist:
                 return {"results": []}
-            return {"results": DataCollection.objects.filter(species=species)}
-        species = Species.objects.filter(isotope=isotope)
+            return {"results": DataCollection.objects.filter(species=species).order_by("dataset")}
+        species = Species.objects.filter(isotope=isotope).order_by("charge", "slug")
         return {"species": species}
 
     atom = pyvalem_formula.atoms.pop().symbol
     charge = pyvalem_formula.charge
     if charge or not all_charges:
-        species = Species.objects.filter(atom=atom, charge=charge)
+        species = Species.objects.filter(atom=atom, charge=charge).order_by("charge", "slug")
         if species.count() == 1:
-            return {"results": DataCollection.objects.filter(species__in=species)}
+            return {"results": DataCollection.objects.filter(species__in=species).order_by("dataset")}
         return {"species": species}
-    species = Species.objects.filter(atom=atom)
+    species = Species.objects.filter(atom=atom).order_by("charge", "slug")
     return {"species": species}
 
 

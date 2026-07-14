@@ -10,8 +10,16 @@
 <div class="file-list">
 {% for link in datacollection.links.all %}
 <div class="file-card">
-    <a href="{{ link.download_url }}">{{ link.filename }}</a> [{{ link.size|filesizeformat }}]
-    <a class="preview-link" href="{% preview_url link %}">Preview</a>
+    <div class="file-card-header">
+        <a class="file-preview-link" href="{% preview_url link %}">{{ link.filename }}</a>
+        <span>[{{ link.size|filesizeformat }}]</span>
+        <a class="download-icon" href="{% download_url link %}" download title="Download {{ link.filename }}" aria-label="Download {{ link.filename }}">
+            <svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" focusable="false">
+                <path d="M12 3a1 1 0 0 1 1 1v9.59l3.3-3.3a1 1 0 1 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 1 1 1.4-1.42l3.3 3.3V4a1 1 0 0 1 1-1z"></path>
+                <path d="M5 19a1 1 0 0 1 1-1h12a1 1 0 1 1 0 2H6a1 1 0 0 1-1-1z"></path>
+            </svg>
+        </a>
+    </div>
     <p>{{ link.description }}</p>
     {% link_metadata link datacollection.metadata %}
 </div>

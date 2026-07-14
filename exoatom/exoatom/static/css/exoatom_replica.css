@@ -258,15 +258,44 @@ button.secondary:hover,
   padding: 10px;
 }
 
+.file-card-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
 .file-card a {
   font-size: 20px;
   text-decoration: underline;
 }
 
-.preview-link {
-  display: inline-block;
-  margin-left: 10px;
-  font-size: 16px !important;
+.file-preview-link {
+  overflow-wrap: anywhere;
+}
+
+.download-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: var(--accent);
+  line-height: 1;
+  text-decoration: none !important;
+}
+
+.download-icon svg {
+  fill: currentColor;
+}
+
+.download-icon:hover,
+.download-icon:focus {
+  background: #fff7f0;
+  border-color: #f6c79b;
+  color: var(--accent-dark);
 }
 
 .file-card p,

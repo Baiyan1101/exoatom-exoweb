@@ -30,6 +30,7 @@ urlpatterns = urlpatterns + [
     re_path('^ExoAtom.all.json$', RedirectView.as_view(url='/exoatom/db/exoatom.all.json')),
     re_path('^exoatom.all.json$', RedirectView.as_view(url='/exoatom/db/exoatom.all.json')),
     path("data/preview/<path:file_path>", data.views.file_preview, name="data_file_preview"),
+    path("data/download/<path:file_path>", data.views.file_download, name="data_file_download"),
     path("data/<int:pk>", data.views.datacollection, name="datacollection"),
 ]
 

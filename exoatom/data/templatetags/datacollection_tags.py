@@ -21,6 +21,11 @@ def preview_url(link):
 
 
 @register.simple_tag
+def download_url(link):
+    return reverse("data_file_download", kwargs={"file_path": link.url})
+
+
+@register.simple_tag
 def link_metadata(link, metadata):
     if link.url.endswith(".json"):
         return ""

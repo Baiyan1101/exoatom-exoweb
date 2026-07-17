@@ -8,12 +8,14 @@ from wagtail import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
 from search import views as search_views
+import data.views
 
 urlpatterns = [
     path("django-admin/", admin.site.urls),
     path("admin/", include(wagtailadmin_urls)),
     path("documents/", include(wagtaildocs_urls)),
     path("search/", search_views.search, name="search"),
+    path("coverage/", data.views.coverage_matrix, name="coverage_matrix"),
 ]
 
 
@@ -25,7 +27,6 @@ if settings.DEBUG:
     urlpatterns += staticfiles_urlpatterns()
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-import data.views
 urlpatterns = urlpatterns + [
     re_path('^ExoAtom.all.json$', RedirectView.as_view(url='/exoatom/db/exoatom.all.json')),
     re_path('^exoatom.all.json$', RedirectView.as_view(url='/exoatom/db/exoatom.all.json')),

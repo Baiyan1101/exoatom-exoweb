@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block title %}Kurucz vs NIST Coverage{% endblock %}
+
+{% block content %}
+<section class="coverage-page">
+    <div class="coverage-header">
+        <div>
+            <h2>Kurucz vs NIST Coverage</h2>
+            <p>Atomic species coverage by element and ionization stage. Click any marked cell to open the corresponding datasets.</p>
+        </div>
+        <a class="coverage-home-link" href="/">Back to search</a>
+    </div>
+
+    <div class="coverage-summary" aria-label="Coverage summary">
+        <div><strong>{{ nist_species }}</strong><span>NIST species</span></div>
+        <div><strong>{{ kurucz_species }}</strong><span>Kurucz species</span></div>
+        <div><strong>{{ counts.both }}</strong><span>Both</span></div>
+        <div><strong>{{ counts.kurucz }}</strong><span>Kurucz only</span></div>
+        <div><strong>{{ counts.nist }}</strong><span>NIST only</span></div>
+    </div>
+
+    <div class="coverage-toolbar">
+        <label class="coverage-search">
+            <span>Element</span>
+            <input id="coverage-element-filter" type="search" placeholder="Be, Ti, Fe..." autocomplete="off">
+        </label>
+        <div class="coverage-filters" aria-label="Coverage filters">
+            <button type="button" data-coverage-filter="all" class="is-active">All</button>
+            <button type="button" data-coverage-filter="both">Both</button>
+            <button type="button" data-coverage-filter="kurucz">Kurucz only</button>
+            <button type="button" data-coverage-filter="nist">NIST only</button>
+        </div>
+    </div>
+
+    <div class="coverage-legend">
+        <span><b class="coverage-chip coverage-both">B</b> Both Kurucz &amp; NIST</span>
+        <span><b class="coverage-chip coverage-kurucz">K</b> Kurucz only</span>
+        <span><b class="coverage-chip coverage-nist">N</b> NIST only</span>
+    </div>
+
+    <div class="coverage-table-wrap" tabindex="0" aria-label="Scrollable coverage matrix">
+        <table class="coverage-table">
+            <thead>
+                <tr>
+                    <th class="coverage-sticky coverage-z">Z</th>
+                    <th class="coverage-sticky coverage-element">Element</th>
+                    {% for stage in stages %}
+                    <th class="coverage-stage" title="Ionization stage {{ stage.label }}">{{ stage.label }}</th>
+                    {% endfor %}
+                    <th class="coverage-count">ions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in rows %}
+                <tr data-element-symbol="{{ row.element.symbol|lower }}" data-element-name="{{ row.element.name|lower }}">
+                    <th class="coverage-sticky coverage-z">{{ row.element.atomic_number }}</th>
+                    <th class="coverage-sticky coverage-element">{{ row.element.symbol }}</th>
+                    {% for cell in row.cells %}
+                    <td class="coverage-cell{% if cell.status %} coverage-{{ cell.status }}{% endif %}" data-coverage-status="{{ cell.status }}">
+                        {% if cell.status %}
+                        <a href="{{ cell.url }}" title="{{ cell.query }}: {{ cell.datasets|join:', ' }}">{{ cell.label }}</a>
+                        {% endif %}
+                    </td>
+                    {% endfor %}
+                    <td class="coverage-count">{{ row.total }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(function () {
+    const input = document.getElementById("coverage-element-filter");
+    const buttons = Array.from(document.querySelectorAll("[data-coverage-filter]"));
+    const rows = Array.from(document.querySelectorAll(".coverage-table tbody tr"));
+    let activeFilter = "all";
+
+    function applyFilters() {
+        const term = input.value.trim().toLowerCase();
+        rows.forEach((row) => {
+            const matchesText = !term || row.dataset.elementSymbol.includes(term) || row.dataset.elementName.includes(term);
+            let matchesStatus = activeFilter === "all";
+            if (!matchesStatus) {
+                matchesStatus = Boolean(row.querySelector(`[data-coverage-status="${activeFilter}"]`));
+            }
+            row.hidden = !(matchesText && matchesStatus);
+        });
+    }
+
+    input.addEventListener("input", applyFilters);
+    buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+            activeFilter = button.dataset.coverageFilter;
+            buttons.forEach((item) => item.classList.toggle("is-active", item === button));
+            applyFilters();
+        });
+    });
+})();
+</script>
+{% endblock %}

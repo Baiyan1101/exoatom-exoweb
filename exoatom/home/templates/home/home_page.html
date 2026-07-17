@@ -17,6 +17,14 @@
 
 {% include "data/search_form.html" %}
 
+<section class="coverage-callout">
+    <div>
+        <h2>Kurucz vs NIST coverage</h2>
+        <p>View the full element-by-ionization-stage coverage matrix for both datasets.</p>
+    </div>
+    <a href="{% url 'coverage_matrix' %}">Open coverage matrix</a>
+</section>
+
 <section id="results" class="results" aria-live="polite">
 {% if results %}
 <h2 id="search-results">Search Results</h2>

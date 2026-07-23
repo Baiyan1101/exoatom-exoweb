@@ -21,6 +21,10 @@ separate writable repository.
 Keep large data and runtime files out of Git. The code repository should only
 contain source code, templates, static assets, tests, and documentation.
 
+`exoatom/exoatom/settings/local.py` is an ignored local configuration file for
+this exoweb work copy. Keep machine-specific paths and local secrets there; do
+not commit it.
+
 ## Environment Setup
 
 The virtual environment already lives outside the code repository:
@@ -66,7 +70,7 @@ example `8001`.
 
 - `/`: ExoAtom search page with migrated prototype interactions.
 - `/coverage/`: dynamic Kurucz vs NIST coverage matrix.
-- `/data/<id>/`: dataset detail pages in the existing ExoMol style.
+- `/data/<id>`: dataset detail pages in the existing ExoMol style.
 - `/data/preview/<file_path>`: safe text preview for data and metadata files.
 - `/data/download/<file_path>`: per-file download endpoint.
 

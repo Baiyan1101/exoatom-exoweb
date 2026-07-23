@@ -67,6 +67,7 @@ Useful pages:
 ```text
 /                         Search and dataset results
 /coverage/                Kurucz vs NIST coverage matrix
+/data/<id>                Dataset detail page
 /data/preview/<file>      Safe file preview
 /data/download/<file>     File download
 ```
